@@ -74,7 +74,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-scripts/terraform/.terraform.lock.hcl
+.terraform.lock.hcl
 
 ### Packer template
 # Cache objects
