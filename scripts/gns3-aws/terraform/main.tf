@@ -6,6 +6,13 @@ terraform {
     }
   }
 
+  backend "s3" {
+    bucket = "network-labs-terraform-states"
+    key    = "gns3/lab"
+    profile = "dev"
+    region = "eu-west-3"
+  }
+
   required_version = ">= 0.14.9"
 }
 

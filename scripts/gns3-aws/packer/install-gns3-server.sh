@@ -18,13 +18,23 @@ curl -o /tmp/gns3-remote-install.sh https://raw.githubusercontent.com/GNS3/gns3-
 sudo bash /tmp/gns3-remote-install.sh
 rm /tmp/gns3-remote-install.sh
 
+# Create management bridge for GNS3 labs
+sudo tee /etc/netplan/10-gns3-custom.yaml <<EOF
+network:
+    version: 2
+    renderer: networkd
+    bridges:
+        br-mgmt:
+            addresses: [ 192.168.123.0/24 ]
+EOF
+
 # Install docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 # Install NetBox
-git clone -b release https://github.com/netbox-community/netbox-docker.git
+git clone -b 1.5.1 https://github.com/netbox-community/netbox-docker.git
 cd netbox-docker
 tee docker-compose.override.yml <<EOF
 version: '3.4'
@@ -62,13 +72,19 @@ sudo systemctl enable netbox.service
 
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
+unzip -q awscliv2.zip
 sudo ./aws/install
 aws --version
 rm -rf aws
 rm awscliv2.zip
+set -ex
 
 # Copy images
-sudo aws s3 sync s3://gns3-images/ /opt/gns3/images/QEMU
+sudo aws s3 sync s3://gns3-images/images/ /opt/gns3/images/QEMU
 sudo chown gns3: /opt/gns3/images/QEMU/*
+
+# Install TFTP server and licenses
+sudo apt-get install -y tftpd-hpa
+sudo aws s3 sync s3://gns3-images/licenses/ /srv/tftp/
+sudo chown -R tftp:tftp /srv/tftp/
 
