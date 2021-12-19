@@ -7,6 +7,6 @@ variable "gns3_instance_type" {
 variable "my_public_ip_addr" {
   description = "Fixed public IP address to be used to access the GNS3 server"
   type        = string
-  default     = "90.127.148.252/32"
+  default     = "0.0.0.0/0"
 }
 
