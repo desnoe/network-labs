@@ -5,7 +5,7 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2021-12-23 19:49:32 CET
+-- Started on 2021-12-23 20:03:25 CET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -6984,6 +6984,10 @@ COPY public.circuits_providernetwork (created, last_updated, custom_field_data, 
 --
 
 COPY public.dcim_cable (created, last_updated, custom_field_data, id, termination_a_id, termination_b_id, type, status, label, color, length, length_unit, _abs_length, _termination_a_device_id, _termination_b_device_id, termination_a_type_id, termination_b_type_id, tenant_id) FROM stdin;
+2021-12-23	2021-12-23 19:00:35.092994+00	{}	132	566	637		connected			\N		\N	76	77	27	27	\N
+2021-12-23	2021-12-23 19:01:42.909628+00	{}	133	567	638		connected			\N		\N	76	77	27	27	\N
+2021-12-23	2021-12-23 19:02:06.791534+00	{}	134	647	630		connected			\N		\N	78	76	27	27	\N
+2021-12-23	2021-12-23 19:02:52.757976+00	{}	135	648	639		connected			\N		\N	79	77	27	27	\N
 \.
 
 
@@ -6994,6 +6998,14 @@ COPY public.dcim_cable (created, last_updated, custom_field_data, id, terminatio
 --
 
 COPY public.dcim_cablepath (id, origin_id, destination_id, path, is_active, is_split, destination_type_id, origin_type_id) FROM stdin;
+263	566	637	{14:132}	t	f	27	27
+264	637	566	{14:132}	t	f	27	27
+265	567	638	{14:133}	t	f	27	27
+266	638	567	{14:133}	t	f	27	27
+267	647	630	{14:134}	t	f	27	27
+268	630	647	{14:134}	t	f	27	27
+269	648	639	{14:135}	t	f	27	27
+270	639	648	{14:135}	t	f	27	27
 \.
 
 
@@ -7046,6 +7058,8 @@ COPY public.dcim_consoleserverporttemplate (created, last_updated, id, name, _na
 COPY public.dcim_device (created, last_updated, custom_field_data, id, local_context_data, name, _name, serial, asset_tag, "position", face, status, vc_position, vc_priority, comments, cluster_id, device_role_id, device_type_id, location_id, platform_id, primary_ip4_id, primary_ip6_id, rack_id, site_id, tenant_id, virtual_chassis_id, airflow) FROM stdin;
 2021-12-19	2021-12-23 17:13:49.331795+00	{"gns3_x": 100, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}	76	\N	SW1	SW00000001		\N	\N		active	\N	\N		\N	13	10	\N	10	\N	\N	\N	7	\N	\N	
 2021-12-23	2021-12-23 18:47:05.706334+00	{"gns3_x": 200, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}	77	\N	SW2	SW00000002		\N	\N		active	\N	\N		\N	13	10	\N	10	\N	\N	\N	7	\N	\N	
+2021-12-23	2021-12-23 18:59:17.48562+00	{"gns3_x": 0, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}	78	\N	LAP1	LAP00000001		\N	\N		active	\N	\N		\N	8	5	\N	4	\N	\N	\N	7	\N	\N	
+2021-12-23	2021-12-23 18:59:41.20598+00	{"gns3_x": 300, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}	79	\N	LAP2	LAP00000002		\N	\N		active	\N	\N		\N	8	5	\N	4	\N	\N	\N	7	\N	\N	
 \.
 
 
@@ -7129,19 +7143,13 @@ COPY public.dcim_frontporttemplate (created, last_updated, id, name, _name, labe
 --
 
 COPY public.dcim_interface (created, last_updated, custom_field_data, id, name, label, description, _link_peer_id, mark_connected, enabled, mac_address, mtu, mode, _name, type, mgmt_only, _link_peer_type_id, _path_id, cable_id, device_id, lag_id, parent_id, untagged_vlan_id, wwn, bridge_id, rf_role, rf_channel, rf_channel_frequency, rf_channel_width, tx_power, wireless_link_id) FROM stdin;
-2021-12-23	2021-12-23 18:46:09.073278+00	{}	630	Ethernet1/3			\N	f	t	\N	\N		0001999999999999Ethernet000003............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.378762+00	{}	631	Ethernet1/4			\N	f	t	\N	\N		0001999999999999Ethernet000004............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.42545+00	{}	632	Ethernet1/5			\N	f	t	\N	\N		0001999999999999Ethernet000005............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:06:48.475902+00	{}	563	mgmt0			\N	f	t	\N	\N		9999999999999999mgmt000000............	1000base-t	t	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
-2021-12-23	2021-12-23 18:07:52.953674+00	{}	566	Ethernet1/1			\N	f	t	\N	\N		0001999999999999Ethernet000001............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
-2021-12-23	2021-12-23 18:07:53.019708+00	{}	567	Ethernet1/2			\N	f	t	\N	\N		0001999999999999Ethernet000002............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.471029+00	{}	633	Ethernet1/6			\N	f	t	\N	\N		0001999999999999Ethernet000006............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.51899+00	{}	634	Ethernet1/7			\N	f	t	\N	\N		0001999999999999Ethernet000007............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.568056+00	{}	635	Ethernet1/8			\N	f	t	\N	\N		0001999999999999Ethernet000008............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:46:09.616269+00	{}	636	Ethernet1/9			\N	f	t	\N	\N		0001999999999999Ethernet000009............	1000base-t	f	\N	\N	\N	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
-2021-12-23	2021-12-23 18:47:39.545982+00	{}	637	Ethernet1/1			\N	f	t	\N	\N		0001999999999999Ethernet000001............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
-2021-12-23	2021-12-23 18:47:39.634569+00	{}	638	Ethernet1/2			\N	f	t	\N	\N		0001999999999999Ethernet000002............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
-2021-12-23	2021-12-23 18:47:39.681322+00	{}	639	Ethernet1/3			\N	f	t	\N	\N		0001999999999999Ethernet000003............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:47:39.728562+00	{}	640	Ethernet1/4			\N	f	t	\N	\N		0001999999999999Ethernet000004............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:47:39.776241+00	{}	641	Ethernet1/5			\N	f	t	\N	\N		0001999999999999Ethernet000005............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:47:39.824695+00	{}	642	Ethernet1/6			\N	f	t	\N	\N		0001999999999999Ethernet000006............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
@@ -7149,6 +7157,14 @@ COPY public.dcim_interface (created, last_updated, custom_field_data, id, name, 
 2021-12-23	2021-12-23 18:47:39.92277+00	{}	644	Ethernet1/8			\N	f	t	\N	\N		0001999999999999Ethernet000008............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:47:39.980286+00	{}	645	Ethernet1/9			\N	f	t	\N	\N		0001999999999999Ethernet000009............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 2021-12-23	2021-12-23 18:47:57.604691+00	{}	646	mgmt0			\N	f	t	\N	\N		9999999999999999mgmt000000............	1000base-t	f	\N	\N	\N	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:00:35.100319+00	{}	566	Ethernet1/1			637	f	t	\N	\N		0001999999999999Ethernet000001............	1000base-t	f	27	263	132	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:00:35.164212+00	{}	637	Ethernet1/1			566	f	t	\N	\N		0001999999999999Ethernet000001............	1000base-t	f	27	264	132	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:01:42.916072+00	{}	567	Ethernet1/2			638	f	t	\N	\N		0001999999999999Ethernet000002............	1000base-t	f	27	265	133	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:01:42.995423+00	{}	638	Ethernet1/2			567	f	t	\N	\N		0001999999999999Ethernet000002............	1000base-t	f	27	266	133	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:02:06.795811+00	{}	647	eth0			630	f	t	\N	\N		9999999999999999eth000000............	1000base-t	f	27	267	134	78	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:02:06.841542+00	{}	630	Ethernet1/3			647	f	t	\N	\N		0001999999999999Ethernet000003............	1000base-t	f	27	268	134	76	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:02:52.759962+00	{}	648	eth0			639	f	t	\N	\N		9999999999999999eth000000............	1000base-t	f	27	269	135	79	\N	\N	\N	\N	\N			\N	\N	\N	\N
+2021-12-23	2021-12-23 19:02:52.791357+00	{}	639	Ethernet1/3			648	f	t	\N	\N		0001999999999999Ethernet000003............	1000base-t	f	27	270	135	77	\N	\N	\N	\N	\N			\N	\N	\N	\N
 \.
 
 
@@ -10970,6 +10986,20 @@ COPY public.extras_objectchange (id, "time", user_name, request_id, action, chan
 2837	2021-12-23 18:47:39.936384+00	admin	47bf9986-8c3b-47b5-9820-38ca5f9bc588	create	644	77	Ethernet1/8	\N	{"lag": null, "mtu": null, "wwn": "", "mode": "", "name": "Ethernet1/8", "tags": [], "type": "1000base-t", "cable": null, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T18:47:39.922Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
 2838	2021-12-23 18:47:39.990302+00	admin	47bf9986-8c3b-47b5-9820-38ca5f9bc588	create	645	77	Ethernet1/9	\N	{"lag": null, "mtu": null, "wwn": "", "mode": "", "name": "Ethernet1/9", "tags": [], "type": "1000base-t", "cable": null, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T18:47:39.980Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
 2839	2021-12-23 18:47:57.620008+00	admin	8b523151-af18-4e46-aea1-7d2e34592835	create	646	77	mgmt0	\N	{"lag": null, "mtu": null, "wwn": "", "mode": "", "name": "mgmt0", "tags": [], "type": "1000base-t", "cable": null, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T18:47:57.604Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2840	2021-12-23 18:59:17.503603+00	admin	cac2b0e7-9997-499f-aaef-e77ee000f34f	create	78	\N	LAP1	\N	{"face": "", "name": "LAP1", "rack": null, "site": 7, "tags": ["gns3"], "serial": "", "status": "active", "tenant": null, "airflow": "", "cluster": null, "created": "2021-12-23", "comments": "", "location": null, "platform": 4, "position": null, "asset_tag": null, "device_role": 8, "device_type": 5, "primary_ip4": null, "primary_ip6": null, "vc_position": null, "vc_priority": null, "last_updated": "2021-12-23T18:59:17.485Z", "custom_fields": {"gns3_x": 0, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}, "virtual_chassis": null, "local_context_data": null}	20	\N	1
+2841	2021-12-23 18:59:41.223293+00	admin	a1745629-3a0a-440f-9a13-b2dd50bbdedb	create	79	\N	LAP2	\N	{"face": "", "name": "LAP2", "rack": null, "site": 7, "tags": ["gns3"], "serial": "", "status": "active", "tenant": null, "airflow": "", "cluster": null, "created": "2021-12-23", "comments": "", "location": null, "platform": 4, "position": null, "asset_tag": null, "device_role": 8, "device_type": 5, "primary_ip4": null, "primary_ip6": null, "vc_position": null, "vc_priority": null, "last_updated": "2021-12-23T18:59:41.205Z", "custom_fields": {"gns3_x": 300, "gns3_y": 100, "gns3_z": 1, "gns3_symbol": null}, "virtual_chassis": null, "local_context_data": null}	20	\N	1
+2842	2021-12-23 19:00:35.119779+00	admin	2b3b7d22-679c-4dce-9de9-f1144c5f4c2f	update	566	76	Ethernet1/1	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/1", "tags": [], "type": "1000base-t", "cable": 132, "label": "", "bridge": null, "device": 76, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:00:35.100Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2843	2021-12-23 19:00:35.175893+00	admin	2b3b7d22-679c-4dce-9de9-f1144c5f4c2f	update	637	77	Ethernet1/1	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/1", "tags": [], "type": "1000base-t", "cable": 132, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:00:35.164Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2844	2021-12-23 19:00:35.217761+00	admin	2b3b7d22-679c-4dce-9de9-f1144c5f4c2f	create	132	\N	#132	\N	{"tags": [], "type": "", "color": "", "label": "", "length": null, "status": "connected", "tenant": null, "created": "2021-12-23", "length_unit": "", "last_updated": "2021-12-23T19:00:35.092Z", "custom_fields": {}, "termination_a_id": 566, "termination_b_id": 637, "termination_a_type": 27, "termination_b_type": 27}	14	\N	1
+2845	2021-12-23 19:01:42.950879+00	admin	1bf1d202-aeed-447a-9298-56682c5249bb	update	567	76	Ethernet1/2	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/2", "tags": [], "type": "1000base-t", "cable": 133, "label": "", "bridge": null, "device": 76, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:01:42.916Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2846	2021-12-23 19:01:43.007123+00	admin	1bf1d202-aeed-447a-9298-56682c5249bb	update	638	77	Ethernet1/2	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/2", "tags": [], "type": "1000base-t", "cable": 133, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:01:42.995Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2847	2021-12-23 19:01:43.048277+00	admin	1bf1d202-aeed-447a-9298-56682c5249bb	create	133	\N	#133	\N	{"tags": [], "type": "", "color": "", "label": "", "length": null, "status": "connected", "tenant": null, "created": "2021-12-23", "length_unit": "", "last_updated": "2021-12-23T19:01:42.909Z", "custom_fields": {}, "termination_a_id": 567, "termination_b_id": 638, "termination_a_type": 27, "termination_b_type": 27}	14	\N	1
+2848	2021-12-23 19:02:06.808579+00	admin	d35f8737-801a-4f33-b2eb-7cba4e6af78a	update	647	78	eth0	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "eth0", "tags": [], "type": "1000base-t", "cable": 134, "label": "", "bridge": null, "device": 78, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:02:06.795Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2849	2021-12-23 19:02:06.851414+00	admin	d35f8737-801a-4f33-b2eb-7cba4e6af78a	update	630	76	Ethernet1/3	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/3", "tags": [], "type": "1000base-t", "cable": 134, "label": "", "bridge": null, "device": 76, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:02:06.841Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2850	2021-12-23 19:02:06.88689+00	admin	d35f8737-801a-4f33-b2eb-7cba4e6af78a	create	134	\N	#134	\N	{"tags": [], "type": "", "color": "", "label": "", "length": null, "status": "connected", "tenant": null, "created": "2021-12-23", "length_unit": "", "last_updated": "2021-12-23T19:02:06.791Z", "custom_fields": {}, "termination_a_id": 647, "termination_b_id": 630, "termination_a_type": 27, "termination_b_type": 27}	14	\N	1
+2851	2021-12-23 19:02:52.767907+00	admin	eb3eec9a-fc43-47be-be6b-cce82e648892	update	648	79	eth0	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "eth0", "tags": [], "type": "1000base-t", "cable": 135, "label": "", "bridge": null, "device": 79, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:02:52.759Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2852	2021-12-23 19:02:52.799205+00	admin	eb3eec9a-fc43-47be-be6b-cce82e648892	update	639	77	Ethernet1/3	\N	{"lag": null, "mtu": null, "wwn": null, "mode": "", "name": "Ethernet1/3", "tags": [], "type": "1000base-t", "cable": 135, "label": "", "bridge": null, "device": 77, "parent": null, "created": "2021-12-23", "enabled": true, "rf_role": "", "tx_power": null, "mgmt_only": false, "rf_channel": "", "description": "", "mac_address": null, "last_updated": "2021-12-23T19:02:52.791Z", "tagged_vlans": [], "custom_fields": {}, "untagged_vlan": null, "wireless_lans": [], "wireless_link": null, "mark_connected": false, "rf_channel_width": null, "rf_channel_frequency": null}	27	20	1
+2853	2021-12-23 19:02:52.828461+00	admin	eb3eec9a-fc43-47be-be6b-cce82e648892	create	135	\N	#135	\N	{"tags": [], "type": "", "color": "", "label": "", "length": null, "status": "connected", "tenant": null, "created": "2021-12-23", "length_unit": "", "last_updated": "2021-12-23T19:02:52.757Z", "custom_fields": {}, "termination_a_id": 648, "termination_b_id": 639, "termination_a_type": 27, "termination_b_type": 27}	14	\N	1
 \.
 
 
@@ -10993,6 +11023,8 @@ gns3	gns3	2021-10-25	2021-10-25 11:31:21.394239+00	1	9e9e9e
 COPY public.extras_taggeditem (object_id, id, content_type_id, tag_id) FROM stdin;
 76	79	20	1
 77	80	20	1
+78	81	20	1
+79	82	20	1
 \.
 
 
@@ -11573,7 +11605,7 @@ SELECT pg_catalog.setval('public.circuits_providernetwork_id_seq', 1, false);
 -- Name: dcim_cable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.dcim_cable_id_seq', 131, true);
+SELECT pg_catalog.setval('public.dcim_cable_id_seq', 135, true);
 
 
 --
@@ -11582,7 +11614,7 @@ SELECT pg_catalog.setval('public.dcim_cable_id_seq', 131, true);
 -- Name: dcim_cablepath_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.dcim_cablepath_id_seq', 262, true);
+SELECT pg_catalog.setval('public.dcim_cablepath_id_seq', 270, true);
 
 
 --
@@ -11627,7 +11659,7 @@ SELECT pg_catalog.setval('public.dcim_consoleserverporttemplate_id_seq', 1, fals
 -- Name: dcim_device_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.dcim_device_id_seq', 77, true);
+SELECT pg_catalog.setval('public.dcim_device_id_seq', 79, true);
 
 
 --
@@ -11690,7 +11722,7 @@ SELECT pg_catalog.setval('public.dcim_frontporttemplate_id_seq', 1, false);
 -- Name: dcim_interface_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.dcim_interface_id_seq', 646, true);
+SELECT pg_catalog.setval('public.dcim_interface_id_seq', 648, true);
 
 
 --
@@ -12113,7 +12145,7 @@ SELECT pg_catalog.setval('public.extras_journalentry_id_seq', 1, false);
 -- Name: extras_objectchange_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.extras_objectchange_id_seq', 2839, true);
+SELECT pg_catalog.setval('public.extras_objectchange_id_seq', 2853, true);
 
 
 --
@@ -12131,7 +12163,7 @@ SELECT pg_catalog.setval('public.extras_tag_id_seq', 4, true);
 -- Name: extras_taggeditem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.extras_taggeditem_id_seq', 80, true);
+SELECT pg_catalog.setval('public.extras_taggeditem_id_seq', 82, true);
 
 
 --
@@ -19495,7 +19527,7 @@ ALTER TABLE ONLY public.wireless_wirelesslink
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2021-12-23 19:49:51 CET
+-- Completed on 2021-12-23 20:03:45 CET
 
 --
 -- PostgreSQL database dump complete
