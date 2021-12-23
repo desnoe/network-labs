@@ -90,7 +90,7 @@ class Converter:
         for device in devices:
             logger.info(f'Set node for device {device["name"]} ...')
             device["interfaces"] = self.nb.get(
-                "/dcim/interfaces/?q=&device_id=" + str(device["id"])
+                "/dcim/interfaces/?q=&limit=0&device_id=" + str(device["id"])
             ).json()["results"]
             device["platform"] = self.nb.request(
                 "GET", "/dcim/platforms/" + str(device["platform"]["id"])
@@ -229,9 +229,16 @@ class Converter:
 
     @staticmethod
     def device_get_physical_interfaces(device):
-        return [
-            i for i in device["interfaces"] if i["type"]["value"] not in ["virtual"]
+        virtual_types = ["virtual", "bridge"]
+
+        physical_interfaces = [
+            i for i in device["interfaces"] if i["type"]["value"] not in virtual_types
         ]
+
+        mgmt_interfaces = [i for i in physical_interfaces if i["mgmt_only"]]
+        other_interfaces = [i for i in physical_interfaces if not i["mgmt_only"]]
+
+        return mgmt_interfaces + other_interfaces
 
     @staticmethod
     def device_custom_adapters(device):
