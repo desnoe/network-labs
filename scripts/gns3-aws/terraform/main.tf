@@ -25,6 +25,10 @@ resource "aws_default_subnet" "default_az1" {
   availability_zone = "eu-west-3a"
 }
 
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
 resource "aws_security_group" "gns3_sg" {
   name   = "gns3-sg"
 
@@ -34,7 +38,7 @@ resource "aws_security_group" "gns3_sg" {
       from_port        = 22
       to_port          = 22
       protocol         = "tcp"
-      cidr_blocks      = [var.my_public_ip_addr]
+      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       security_groups  = []
@@ -45,7 +49,7 @@ resource "aws_security_group" "gns3_sg" {
       from_port        = 3080
       to_port          = 3080
       protocol         = "tcp"
-      cidr_blocks      = [var.my_public_ip_addr]
+      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       security_groups  = []
@@ -56,7 +60,7 @@ resource "aws_security_group" "gns3_sg" {
       from_port        = 8080
       to_port          = 8080
       protocol         = "tcp"
-      cidr_blocks      = [var.my_public_ip_addr]
+      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       security_groups  = []
@@ -67,7 +71,7 @@ resource "aws_security_group" "gns3_sg" {
       from_port        = 5000
       to_port          = 6000
       protocol         = "tcp"
-      cidr_blocks      = [var.my_public_ip_addr]
+      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       security_groups  = []
@@ -109,7 +113,8 @@ data "aws_ami" "gns3_server_ami" {
   }
 }
 
-resource "aws_instance" "gns3_server" {
+resource "aws_spot_instance_request" "gns3_server" {
+  wait_for_fulfillment = true
   ami                  = data.aws_ami.gns3_server_ami.id
   instance_type        = var.gns3_instance_type
   key_name             = aws_key_pair.ssh_key.key_name
@@ -185,5 +190,5 @@ resource "aws_route53_record" "gns3" {
   name    = "gns3.${data.aws_route53_zone.lab_aws_delarche_fr.name}"
   type    = "A"
   ttl     = "60"
-  records = [aws_instance.gns3_server.public_ip]
+  records = [aws_spot_instance_request.gns3_server.public_ip]
 }

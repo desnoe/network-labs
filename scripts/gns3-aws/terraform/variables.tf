@@ -3,10 +3,3 @@ variable "gns3_instance_type" {
   type        = string
   default     = "t3.small"
 }
-
-variable "my_public_ip_addr" {
-  description = "Fixed public IP address to be used to access the GNS3 server"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
