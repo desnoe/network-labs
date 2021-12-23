@@ -25,7 +25,7 @@ network:
     renderer: networkd
     bridges:
         br-mgmt:
-            addresses: [ 192.168.123.0/24 ]
+            addresses: [ 192.168.123.1/24 ]
 EOF
 
 # Install docker-compose
