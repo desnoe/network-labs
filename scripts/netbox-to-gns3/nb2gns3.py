@@ -178,7 +178,7 @@ class Converter:
         params = {"name": platform["name"]}
 
         for k in vars(gns3_client.TemplateMetadata()).keys():
-            cf = "gns3:" + k
+            cf = "gns3_" + k
             if cf in platform["custom_fields"]:
                 params[k] = platform["custom_fields"][cf]
 
@@ -189,12 +189,12 @@ class Converter:
         params = {"name": site["name"]}
 
         for k in vars(gns3_client.DrawingMetadata()).keys():
-            cf = "gns3:" + k
+            cf = "gns3_" + k
             if cf in site["custom_fields"]:
                 params[k] = site["custom_fields"][cf]
 
-        height = site["custom_fields"]["gns3:height"]
-        width = site["custom_fields"]["gns3:width"]
+        height = site["custom_fields"]["gns3_height"]
+        width = site["custom_fields"]["gns3_width"]
         svg = (
             f'<svg height="{height}" width="{width}">'
             f'<rect fill="#b0b0b0" fill-opacity="1.0" height="{height}" width="{width}" />'
@@ -218,12 +218,12 @@ class Converter:
             params["properties"] = properties
 
         for k in vars(gns3_client.NodeMetadata()).keys():
-            cf = "gns3:" + k
+            cf = "gns3_" + k
             if cf in device["custom_fields"]:
                 params[k] = device["custom_fields"][cf]
 
         for cf in ("x", "y", "z"):
-            params[cf] += site["custom_fields"]["gns3:" + cf]
+            params[cf] += site["custom_fields"]["gns3_" + cf]
 
         return params
 
@@ -235,7 +235,7 @@ class Converter:
 
     @staticmethod
     def device_custom_adapters(device):
-        template_type = device["platform"]["custom_fields"]["gns3:template_type"]
+        template_type = device["platform"]["custom_fields"]["gns3_template_type"]
         if template_type in ["qemu", "docker"]:
             custom_adapters = list()
             for n, i in enumerate(Converter.device_get_physical_interfaces(device)):
@@ -245,7 +245,7 @@ class Converter:
 
     @staticmethod
     def device_properties(device):
-        template_type = device["platform"]["custom_fields"]["gns3:template_type"]
+        template_type = device["platform"]["custom_fields"]["gns3_template_type"]
         if template_type in ["qemu", "docker"]:
             return {"adapters": len(Converter.device_get_physical_interfaces(device))}
         if template_type == "ethernet_switch":
