@@ -2,7 +2,7 @@
 
 ## Description
 
-![](/Users/olivier/git/github.com/desnoe/network-labs/labs/simple-nxos-lab/lab.png)
+![](lab.png)
 
 LAP1/LAP2 are 2 docker containers configured with IP addresses 192.168.1.1/24 and 192.168.1.2/24.
 
