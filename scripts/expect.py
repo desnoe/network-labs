@@ -101,7 +101,7 @@ class Vyos(LoggedTelnet):
 
         if self.mode is VyOSModes.OPERATIONAL:
             logger.debug(f"command={command}, sending Ctrl+D")
-            v.send_character(b"\x04")
+            self.send_character(b"\x04")
 
         if self.mode is VyOSModes.LOGGEDOUT:
             return
@@ -158,10 +158,10 @@ class Vyos(LoggedTelnet):
                 logger.debug(f"command={command}, count={count}, timeouts={timeouts}, timeout={timeout}")
 
                 if timeouts == 1:
-                    v.write(b"\x03")  # send ctrl+C for the first control character
+                    self.write(b"\x03")  # send ctrl+C for the first control character
                     logger.debug(f"command={command}, count={count}, sending Ctrl+C")
                 elif timeouts <= self.MAX_TIMEOUTS:
-                    v.write_line()  # then try with enter because sometimes sending ctrl+C is not enough
+                    self.write_line()  # then try with enter because sometimes sending ctrl+C is not enough
                     logger.debug(f"command={command}, count={count}, sending Enter")
                 else:
                     logger.debug(f"command={command}, count={count}, aborting!")
@@ -206,18 +206,19 @@ class Vyos(LoggedTelnet):
         return "\n".join(config_lines)
 
 
-fmt = "%(color)s[%(levelname)1.1s %(asctime)s.%(msecs)03d %(module)s:%(lineno)d]%(end_color)s %(message)s"
-formatter = logzero.LogFormatter(fmt=fmt)
-logzero.formatter(formatter)
+if __name__ == '__main__':
+    fmt = "%(color)s[%(levelname)1.1s %(asctime)s.%(msecs)03d %(module)s:%(lineno)d]%(end_color)s %(message)s"
+    formatter = logzero.LogFormatter(fmt=fmt)
+    logzero.formatter(formatter)
 
-v = Vyos(host="172.25.41.101", port=5105)
-v.login("vyos", "vyos")
-v.login("vyos", "vyos")
-v.configure(commit=False)
-v.login("vyos", "vyos")
-print(v.get_configuration())
-print(v.get_configuration(commands=True))
-print(v.get_configuration(json=True))
-v.logout()
-v.login("vyos", "vyos")
-v.logout()
+    v = Vyos(host="172.25.41.101", port=5105)
+    v.login("vyos", "vyos")
+    v.login("vyos", "vyos")
+    v.configure(commit=False)
+    v.login("vyos", "vyos")
+    print(v.get_configuration())
+    print(v.get_configuration(commands=True))
+    print(v.get_configuration(json=True))
+    v.logout()
+    v.login("vyos", "vyos")
+    v.logout()
