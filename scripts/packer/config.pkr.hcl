@@ -11,14 +11,14 @@ locals {
   timestamp = formatdate("YYYYMMDD", timestamp())
 }
 
-source "parallels-pvm" "ubuntu" {
-  vm_name                = "gns3-server"
-  parallels_tools_flavor = "lin"
-  source_path            = "ubuntu.pvm"
-  ssh_private_key_file   = "~/.ssh/id_rsa"
-  ssh_username           = "ubuntu"
-  ssh_timeout            = "60s"
-  shutdown_command       = "echo 'packer' | sudo -S shutdown -P now"
+source "vagrant" "ubuntu" {
+  insert_key   = true
+  communicator = "ssh"
+  source_path  = "bento/ubuntu-20.04"
+  ssh_username = "vagrant"
+  ssh_password = "vagrant"
+  provider     = "parallels"
+  add_force    = true
 }
 
 source "amazon-ebs" "ubuntu" {
@@ -35,6 +35,11 @@ source "amazon-ebs" "ubuntu" {
     }
     most_recent = true
     owners      = ["099720109477"]
+  }
+
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"
+    volume_size = 50
   }
 
   ssh_username              = "ubuntu"
@@ -59,14 +64,14 @@ source "amazon-ebs" "ubuntu" {
 build {
   name    = "gns3-server"
   sources = [
-    "source.amazon-ebs.ubuntu", "source.parallels-pvm.ubuntu"
+    "source.amazon-ebs.ubuntu", "source.vagrant.ubuntu"
   ]
   provisioner "file" {
     only        = [
-      "source.parallels-pvm.ubuntu"
+      "vagrant.ubuntu"
     ]
-    source      = "files/"
-    destination = "/tmp/packer/"
+    source      = "upload"
+    destination = "/tmp/"
   }
   provisioner "shell" {
     scripts = [
