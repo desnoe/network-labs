@@ -225,4 +225,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+### Project specific
+
 http_cache.sqlite
+scripts/packer/upload/images/*
+scripts/packer/upload/licenses/*
+.vagrant/

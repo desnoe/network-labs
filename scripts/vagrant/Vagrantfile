@@ -1,0 +1,13 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "gns3-server"
+  config.vm.box_url = "file://../packer/output-ubuntu/package.box"
+  config.vm.provider "parallels" do |prl|
+      prl.customize "post-import", ["set", :id, "--nested-virt", "on"]
+      prl.customize "post-import", ["set", :id, "--hypervisor-type", "parallels"]
+      prl.memory = 12288
+      prl.cpus = 8
+  end
+end

@@ -1,9 +1,11 @@
 #!/bin/bash
 set -ex
 
-echo "waiting 180 seconds for cloud-init to update /etc/apt/sources.list"
-timeout 180 /bin/bash -c \
-  'until stat /var/lib/cloud/instance/boot-finished 2>/dev/null; do echo waiting ...; sleep 1; done'
+if [[ $PACKER_BUILDER_TYPE =~ "amazon-ebs" ]]; then
+  echo "waiting 180 seconds for cloud-init to update /etc/apt/sources.list"
+  timeout 180 /bin/bash -c \
+    'until stat /var/lib/cloud/instance/boot-finished 2>/dev/null; do echo waiting ...; sleep 1; done'
+fi
 
 # Update hostname
 sudo hostnamectl set-hostname gns3
@@ -34,9 +36,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
 # Install NetBox
-git clone -b 1.5.1 https://github.com/netbox-community/netbox-docker.git
-cd netbox-docker
-tee docker-compose.override.yml <<EOF
+sudo git clone -b 1.5.1 https://github.com/netbox-community/netbox-docker.git /opt/netbox-docker
+cd /opt/netbox-docker
+sudo tee docker-compose.override.yml <<EOF
 version: '3.4'
 services:
   netbox:
@@ -55,7 +57,7 @@ After=docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/home/ubuntu/netbox-docker
+WorkingDirectory=/opt/netbox-docker
 ExecStartPre=/usr/local/bin/docker-compose down
 ExecStart=/usr/local/bin/docker-compose up -d
 ExecStop=/usr/local/bin/docker-compose down
@@ -69,22 +71,31 @@ sudo docker-compose pull
 sudo systemctl start netbox.service
 sudo systemctl status netbox.service
 sudo systemctl enable netbox.service
+cd
 
-# Install AWS CLI
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip -q awscliv2.zip
-sudo ./aws/install
-aws --version
-rm -rf aws
-rm awscliv2.zip
-set -ex
+if [[ $PACKER_BUILDER_TYPE =~ "amazon-ebs" ]]; then
+  # Install AWS CLI
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  unzip -q awscliv2.zip
+  sudo ./aws/install
+  aws --version
+  rm -rf aws
+  rm awscliv2.zip
+  set -ex
 
-# Copy images
-sudo aws s3 sync s3://gns3-images/images/ /opt/gns3/images/QEMU
+  # Copy images & licenses
+  mkdir -p /tmp/upload/images
+  aws s3 sync s3://gns3-images/images/ /tmp/upload/images/
+  mkdir -p /tmp/upload/licenses
+  aws s3 sync s3://gns3-images/licenses/ /tmp/upload/licenses/
+fi
+
+# Install images
+sudo cp -vrT /tmp/upload/images /opt/gns3/images/QEMU
 sudo chown gns3: /opt/gns3/images/QEMU/*
 
 # Install TFTP server and licenses
 sudo apt-get install -y tftpd-hpa
-sudo aws s3 sync s3://gns3-images/licenses/ /srv/tftp/
+sudo cp -vrT /tmp/upload/licenses/ /srv/tftp/
 sudo chown -R tftp:tftp /srv/tftp/
-
+sudo rm -rf /tmp/upload

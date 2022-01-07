@@ -1,40 +1,28 @@
-# GNS3 on AWS
+# Terraform
 
-These [Packer](https://learn.hashicorp.com/packer) and [Terraform](https://learn.hashicorp.com/terraform) scripts 
-allow setting up a fresh GNS3/NetBox server for labs on AWS.
+This [Terraform](https://learn.hashicorp.com/terraform) script allow popping up a fresh GNS3/NetBox server for labs on
+AWS. It uses a spot instance to lower the cost.
 
 ## TL;DR
 
-⚠️ Read and adapt Packer and Terraform scripts to your environement!!! ⚠️
+⚠️ Read and adapt Terraform scripts to your environement!!! ⚠️
 
 Make sure you have AWS credentials somewhere that Packer/Terrafor can rely on (for instance in environment vars).
 
-Copy all your QCOW2 images in a S3 bucket, call it s3://gns3-images.
-
-Clone the Git repo:
-```
-git clone https://github.com/desnoe/network-labs.git && cd network-labs
-```
-
-Run the Packer script to setup the AMI:
-```
-cd scripts/gns3-aws/packer
-packer init .
-packer build .
-```
-
 Run the Terraform script to run the GNS3/NetBox server:
+
 ```
-cd ../terraform
+cd ./scripts/terraform
 terraform plan
 terraform apply
 ```
 
-We can then connect to the [WebUI of the GNS3 server](http://gns3.lab.aws.delarche.fr:3080), or to the [WebUI of 
-NetBox](http://gns3.lab.aws.delarche.fr:8080),or even directly to the [NetBox postgres 
-database](postgres://netbox:J5brHrAXFLQSif0K@gns3.lab.aws.delarche.fr/netbox).
+We can then connect to the [WebUI of the GNS3 server](http://gns3.lab.aws.delarche.fr:3080), or to
+the [WebUI of NetBox](http://gns3.lab.aws.delarche.fr:8080),or even directly to
+the [NetBox postgres database](postgres://netbox:J5brHrAXFLQSif0K@gns3.lab.aws.delarche.fr/netbox).
 
 To clean-up:
+
 ```
 terraform destroy
 ```
@@ -55,6 +43,7 @@ terraform apply -var="gns3_instance_type=c5.metal"
 ## SSH config
 
 Here is configuration pattern you can use in your `~/.ssh/config`:
+
 ```
 Host gns3
   HostName gns3.lab.aws.delarche.fr
