@@ -85,9 +85,9 @@ if [[ $PACKER_BUILDER_TYPE =~ "amazon-ebs" ]]; then
 
   # Copy images & licenses
   mkdir -p /tmp/upload/images
-  aws s3 sync s3://gns3-images/images/ /tmp/upload/images/
+  aws s3 sync s3://${GNS3_IMAGES_BUCKET_NAME}/images/ /tmp/upload/images/
   mkdir -p /tmp/upload/licenses
-  aws s3 sync s3://gns3-images/licenses/ /tmp/upload/licenses/
+  aws s3 sync s3://${GNS3_IMAGES_BUCKET_NAME}/licenses/ /tmp/upload/licenses/
 fi
 
 # Install images
