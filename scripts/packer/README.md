@@ -46,3 +46,9 @@ If you want to only build the vagrant image:
 ```
 packer build -only=gns3-server.amazon-ebs.ubuntu .
 ```
+
+If you want to use another S3 bucket name:
+
+```
+export PKR_VAR_gns3_images_bucket_name=my_bucket_name
+```

@@ -53,7 +53,7 @@ source "amazon-ebs" "ubuntu" {
       Action   = ["s3:*"]
       Effect   = "Allow"
       Resource = [
-        "arn:aws:s3:::gns3-images", "arn:aws:s3:::gns3-images/*"
+        "arn:aws:s3:::${var.gns3_images_bucket_name}", "arn:aws:s3:::${var.gns3_images_bucket_name}/*"
       ]
     }
     Version = "2012-10-17"
@@ -77,6 +77,7 @@ build {
     scripts = [
       "install.sh",
     ]
+    environment_vars = ["GNS3_IMAGES_BUCKET_NAME=${var.gns3_images_bucket_name}"]
   }
 }
 
