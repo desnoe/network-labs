@@ -40,6 +40,13 @@ This can be done easily by overloading the variable `gns3_instance_type`:
 terraform apply -var="gns3_instance_type=c5.metal"
 ```
 
+## Running the GNS3/NetBox with a specific S3 bucket
+
+
+```
+terraform apply -var="gns3_images_bucket_name=my_bucket_name"
+```
+
 ## SSH config
 
 Here is configuration pattern you can use in your `~/.ssh/config`:

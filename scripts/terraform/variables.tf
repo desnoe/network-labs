@@ -3,3 +3,8 @@ variable "gns3_instance_type" {
   type        = string
   default     = "t3.small"
 }
+
+variable "gns3_images_bucket_name" {
+  type = string
+  default = "gns3-images"
+}

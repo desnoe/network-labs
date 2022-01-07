@@ -170,10 +170,8 @@ resource "aws_iam_role_policy" "gns3_server_policy" {
         ]
         Effect = "Allow"
         Resource = [
-          "arn:aws:s3:::gns3-images",
-          "arn:aws:s3:::gns3-images/*",
-          "arn:aws:s3:::delarche-images",
-          "arn:aws:s3:::delarche-images/*"
+          "arn:aws:s3:::${var.gns3_images_bucket_name}",
+          "arn:aws:s3:::${var.gns3_images_bucket_name}/*"
         ]
       },
     ]
